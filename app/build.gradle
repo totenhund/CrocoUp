@@ -73,4 +73,7 @@ dependencies {
     // Logs
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    // ViewPager2
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+
 }

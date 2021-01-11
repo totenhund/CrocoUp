@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.TitleFragmentBinding
+import kotlinx.android.synthetic.main.title_fragment.*
 
 /**
  * Fragment for the starting or title screen of the app
@@ -37,9 +38,7 @@ class TitleFragment : Fragment() {
         val binding: TitleFragmentBinding = DataBindingUtil.inflate(
                 inflater, R.layout.title_fragment, container, false)
 
-        binding.playGameButton.setOnClickListener {
-            findNavController().navigate(TitleFragmentDirections.actionTitleToGame())
-        }
+        binding.viewPager2.adapter = ViewPagerAdapter()
         return binding.root
     }
 }
