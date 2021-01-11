@@ -10,10 +10,8 @@ import kotlinx.android.synthetic.main.item_page.view.*
 class ViewPagerAdapter : RecyclerView.Adapter<PagerVH>() {
 
     private val colors = intArrayOf(
-            android.R.color.black,
-            android.R.color.holo_red_light,
-            android.R.color.holo_blue_dark,
-            android.R.color.holo_purple
+            R.drawable.animals,
+            android.R.color.holo_blue_dark
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerVH =
@@ -23,7 +21,7 @@ class ViewPagerAdapter : RecyclerView.Adapter<PagerVH>() {
 
     override fun onBindViewHolder(holder: PagerVH, position: Int) = holder.itemView.run {
         tvTitle.text = "item $position"
-        container.setBackgroundResource(colors[position])
+        play_card_container.setBackgroundResource(colors[position])
     }
 }
 
