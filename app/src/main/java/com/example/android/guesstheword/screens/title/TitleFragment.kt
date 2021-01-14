@@ -18,6 +18,7 @@ package com.example.android.guesstheword.screens.title
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.TitleFragmentBinding
 import kotlinx.android.synthetic.main.title_fragment.*
+import timber.log.Timber
 import kotlin.math.abs
 
 /**
@@ -41,7 +43,9 @@ class TitleFragment : Fragment() {
         val binding: TitleFragmentBinding = DataBindingUtil.inflate(
                 inflater, R.layout.title_fragment, container, false)
 
-        binding.viewPager2.adapter = ViewPagerAdapter()
+        binding.viewPager2.adapter = ViewPagerAdapter{
+            Log.i("logi", "clicked at : $it")
+        }
         binding.viewPager2.offscreenPageLimit = 1
 
         val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
