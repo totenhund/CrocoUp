@@ -16,6 +16,7 @@
 
 package com.example.android.guesstheword.screens.title
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,9 +24,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.TitleFragmentBinding
 import kotlinx.android.synthetic.main.title_fragment.*
+import kotlin.math.abs
 
 /**
  * Fragment for the starting or title screen of the app
@@ -39,6 +42,24 @@ class TitleFragment : Fragment() {
                 inflater, R.layout.title_fragment, container, false)
 
         binding.viewPager2.adapter = ViewPagerAdapter()
+        binding.viewPager2.offscreenPageLimit = 1
+
+        val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
+        val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+        val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
+        val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
+            page.translationX = -pageTranslationX * position
+            page.scaleY = 1 - (0.25f * abs(position))
+        }
+        binding.viewPager2.setPageTransformer(pageTransformer)
+        val itemDecoration = HorizontalMarginItemDecoration(
+                context!!,
+                R.dimen.viewpager_current_item_horizontal_margin
+        )
+        binding.viewPager2.addItemDecoration(itemDecoration)
+
+        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         return binding.root
     }
 }
