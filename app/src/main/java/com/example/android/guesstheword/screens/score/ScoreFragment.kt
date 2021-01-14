@@ -16,6 +16,7 @@
 
 package com.example.android.guesstheword.screens.score
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -70,6 +71,7 @@ class ScoreFragment : Fragment() {
             }
         })
 
+        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         return binding.root
     }
 }

@@ -45,6 +45,7 @@ class TitleFragment : Fragment() {
 
         binding.viewPager2.adapter = ViewPagerAdapter{
             Log.i("logi", "clicked at : $it")
+            findNavController().navigate(TitleFragmentDirections.actionTitleToGame())
         }
         binding.viewPager2.offscreenPageLimit = 1
 

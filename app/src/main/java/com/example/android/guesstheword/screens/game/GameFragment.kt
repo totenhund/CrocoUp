@@ -16,6 +16,7 @@
 
 package com.example.android.guesstheword.screens.game
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.LayoutInflater
@@ -87,6 +88,7 @@ class GameFragment : Fragment() {
             }
         })
 
+        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         return binding.root
 
     }
