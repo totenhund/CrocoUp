@@ -22,9 +22,8 @@
             android:textSize="50sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@+id/score_text"
-            app:layout_constraintEnd_toStartOf="@+id/correct_button"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/skip_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="&quot;Tuna&quot;" />
@@ -38,8 +37,8 @@
             android:textSize="20sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@+id/score_text"
-            app:layout_constraintEnd_toStartOf="@+id/correct_button"
-            app:layout_constraintStart_toEndOf="@+id/skip_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:text="0:00" />
 
         <TextView
@@ -50,19 +49,9 @@
             android:textSize="24sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintEnd_toStartOf="@+id/correct_button"
-            app:layout_constraintStart_toEndOf="@+id/skip_button"
-            tools:text="Score: 2" />
-
-        <Button
-            android:id="@+id/skip_button"
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
-            android:text="@string/skip"
-            android:theme="@style/SkipButton"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:text="Score: 2" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -70,16 +59,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_end="96dp" />
-
-        <Button
-            android:id="@+id/correct_button"
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
-            android:text="@string/got_it"
-            android:theme="@style/GoButton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -16,12 +16,18 @@
 
 package com.example.android.guesstheword.screens.game
 
+import android.content.Context
 import android.content.pm.ActivityInfo
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -31,16 +37,20 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.GameFragmentBinding
 import timber.log.Timber
+import java.util.*
+import kotlin.math.sqrt
 
-/**
- * Fragment where the game is played
- */
+
 class GameFragment : Fragment() {
 
     private lateinit var viewModel: GameViewModel
-
-
     private lateinit var binding: GameFragmentBinding
+
+    private var sensorManager: SensorManager? = null
+    private var acceleration = 0f
+    private var currentAcceleration = 0f
+    private var lastAcceleration = 0f
+    var lastDate = Date()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -57,14 +67,21 @@ class GameFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
 
 
+        sensorManager = activity!!.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        Objects.requireNonNull(sensorManager)!!.registerListener(sensorListener, sensorManager!!
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
+        acceleration = 10f
+        currentAcceleration = SensorManager.GRAVITY_EARTH
+        lastAcceleration = SensorManager.GRAVITY_EARTH
 
-        binding.correctButton.setOnClickListener {
-            viewModel.onCorrect()
-        }
 
-        binding.skipButton.setOnClickListener {
-            viewModel.onSkip()
-        }
+//        binding.correctButton.setOnClickListener {
+//            viewModel.onCorrect()
+//        }
+//
+//        binding.skipButton.setOnClickListener {
+//            viewModel.onSkip()
+//        }
 
         viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->
             binding.scoreText.text = newScore.toString()
@@ -91,6 +108,46 @@ class GameFragment : Fragment() {
         activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         return binding.root
 
+    }
+
+    private val sensorListener: SensorEventListener = object : SensorEventListener {
+        override fun onSensorChanged(event: SensorEvent) {
+
+            val last = Calendar.getInstance()
+            last.time = lastDate
+            val now = Calendar.getInstance()
+            now.time = Date()
+            var diff = now.timeInMillis - last.timeInMillis
+
+            Timber.i("Diff%s", diff.toString())
+
+            val x = event.values[0]
+            val y = event.values[1]
+            val z = event.values[2]
+            lastAcceleration = currentAcceleration
+            currentAcceleration = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
+            val delta: Float = currentAcceleration - lastAcceleration
+            acceleration = acceleration * 0.9f + delta
+            if (acceleration > 12 && diff > 750) {
+                viewModel.onCorrect()
+                lastDate = Date()
+            }
+
+
+
+        }
+        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+    }
+
+    override fun onResume() {
+        sensorManager?.registerListener(sensorListener, sensorManager!!.getDefaultSensor(
+                Sensor .TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL
+        )
+        super.onResume()
+    }
+    override fun onPause() {
+        sensorManager!!.unregisterListener(sensorListener)
+        super.onPause()
     }
 
 
