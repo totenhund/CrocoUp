@@ -75,14 +75,6 @@ class GameFragment : Fragment() {
         lastAcceleration = SensorManager.GRAVITY_EARTH
 
 
-//        binding.correctButton.setOnClickListener {
-//            viewModel.onCorrect()
-//        }
-//
-//        binding.skipButton.setOnClickListener {
-//            viewModel.onSkip()
-//        }
-
         viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->
             binding.scoreText.text = newScore.toString()
         })
@@ -97,7 +89,7 @@ class GameFragment : Fragment() {
         })
 
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
-            if(isFinished){
+            if (isFinished) {
                 val currentScore = viewModel.score.value ?: 0
                 val action = GameFragmentDirections.actionGameToScore(currentScore)
                 findNavController(this).navigate(action)
@@ -134,17 +126,18 @@ class GameFragment : Fragment() {
             }
 
 
-
         }
+
         override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
     }
 
     override fun onResume() {
         sensorManager?.registerListener(sensorListener, sensorManager!!.getDefaultSensor(
-                Sensor .TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL
+                Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL
         )
         super.onResume()
     }
+
     override fun onPause() {
         sensorManager!!.unregisterListener(sensorListener)
         super.onPause()
