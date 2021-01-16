@@ -24,7 +24,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.TitleFragmentBinding
@@ -45,7 +45,9 @@ class TitleFragment : Fragment() {
 
         binding.viewPager2.adapter = ViewPagerAdapter{
             Log.i("logi", "clicked at : $it")
-            findNavController().navigate(TitleFragmentDirections.actionTitleToGame())
+            val wordCategory = it
+            val action = TitleFragmentDirections.actionTitleToGame(wordCategory)
+            findNavController(this).navigate(action)
         }
         binding.viewPager2.offscreenPageLimit = 1
 

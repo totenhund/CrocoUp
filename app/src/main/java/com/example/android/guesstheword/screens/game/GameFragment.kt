@@ -27,12 +27,10 @@ import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.GameFragmentBinding
@@ -41,9 +39,14 @@ import java.util.*
 import kotlin.math.sqrt
 
 
+import androidx.navigation.fragment.navArgs
+
+
+
 class GameFragment : Fragment() {
 
     private lateinit var viewModel: GameViewModel
+    private lateinit var viewModelFactory: GameViewModelFactory
     private lateinit var binding: GameFragmentBinding
 
     private var sensorManager: SensorManager? = null
@@ -64,7 +67,11 @@ class GameFragment : Fragment() {
         )
 
         Timber.i("ViewModelProvider is Called!")
-        viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
+
+        val gameFragmentArgs by navArgs<GameFragmentArgs>()
+        viewModelFactory = GameViewModelFactory(gameFragmentArgs.category)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+                .get(GameViewModel::class.java)
 
 
         sensorManager = activity!!.getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -85,7 +92,6 @@ class GameFragment : Fragment() {
 
         viewModel.currentTime.observe(viewLifecycleOwner, Observer { newTime ->
             binding.timerText.text = DateUtils.formatElapsedTime(newTime)
-
         })
 
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
@@ -111,7 +117,7 @@ class GameFragment : Fragment() {
             now.time = Date()
             var diff = now.timeInMillis - last.timeInMillis
 
-            Timber.i("Diff%s", diff.toString())
+//            Timber.i("Diff%s", diff.toString())
 
             val x = event.values[0]
             val y = event.values[1]

@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import timber.log.Timber
 
 
-class GameViewModel : ViewModel() {
+class GameViewModel(wordCategory: Int) : ViewModel() {
 
     companion object {
         // when game is over
@@ -20,6 +20,15 @@ class GameViewModel : ViewModel() {
     }
 
     private val timer: CountDownTimer
+
+    //    temporary
+    private var animals = arrayOf("cat", "dog", "pig", "lion", "elephant", "chicken", "carnivores", "herbivores")
+    private var plants = arrayOf("mango", "apple", "grapes", "farmer", "compost", "cucumber", "peach", "cherry")
+
+    private val _category = MutableLiveData<Int>()
+    val category: LiveData<Int>
+        get() = _category
+    //
 
     private val _currentTime = MutableLiveData<Long>()
     val currentTime: LiveData<Long>
@@ -44,6 +53,7 @@ class GameViewModel : ViewModel() {
 
     init {
         Timber.i("GameViewModel is created!")
+        _category.value = wordCategory
         resetList()
         nextWord()
         _score.value = 0
@@ -74,29 +84,17 @@ class GameViewModel : ViewModel() {
      * Resets the list of words and randomizes the order
      */
     private fun resetList() {
-        wordList = mutableListOf(
-                "queen",
-                "hospital",
-                "basketball",
-                "cat",
-                "change",
-                "snail",
-                "soup",
-                "calendar",
-                "sad",
-                "desk",
-                "guitar",
-                "home",
-                "railway",
-                "zebra",
-                "jelly",
-                "car",
-                "crow",
-                "trade",
-                "bag",
-                "roll",
-                "bubble"
-        )
+        wordList = mutableListOf()
+        if (_category.value == 0){
+            for (word in animals){
+                wordList.add(word)
+            }
+        }else if(_category.value == 1){
+            for (word in plants){
+                wordList.add(word)
+            }
+        }
+
         wordList.shuffle()
     }
 
