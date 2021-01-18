@@ -133,11 +133,11 @@ class GameFragment : Fragment() {
             val delta: Float = currentAcceleration - lastAcceleration
             acceleration = acceleration * 0.9f + delta
 
-            if (acceleration > 7 && diff > 750) {
+            if (acceleration > 3 && diff > 750) {
 
-                    if (z > 0) {
+                    if (z > 0 && x < 0) {
                         viewModel.onSkip()
-                        Timber.i("some bugs z: $z diff: $diff $acceleration")
+                        Timber.i("some bugs z: $z x: $x y: $y diff: $diff $acceleration")
                     }else if (z < 0) {
                         viewModel.onCorrect()
                     }
