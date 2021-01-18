@@ -27,6 +27,7 @@ import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -40,7 +41,7 @@ import kotlin.math.sqrt
 
 
 import androidx.navigation.fragment.navArgs
-
+import kotlin.math.abs
 
 
 class GameFragment : Fragment() {
@@ -53,6 +54,9 @@ class GameFragment : Fragment() {
     private var acceleration = 0f
     private var currentAcceleration = 0f
     private var lastAcceleration = 0f
+    private var diff = 0L
+    private var last = Calendar.getInstance()
+    private var now = Calendar.getInstance()
     var lastDate = Date()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -111,23 +115,33 @@ class GameFragment : Fragment() {
     private val sensorListener: SensorEventListener = object : SensorEventListener {
         override fun onSensorChanged(event: SensorEvent) {
 
-            val last = Calendar.getInstance()
+            last = Calendar.getInstance()
             last.time = lastDate
-            val now = Calendar.getInstance()
+            now = Calendar.getInstance()
             now.time = Date()
-            var diff = now.timeInMillis - last.timeInMillis
+            diff = now.timeInMillis - last.timeInMillis
 
 //            Timber.i("Diff%s", diff.toString())
 
             val x = event.values[0]
             val y = event.values[1]
             val z = event.values[2]
+
             lastAcceleration = currentAcceleration
+
             currentAcceleration = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
             val delta: Float = currentAcceleration - lastAcceleration
             acceleration = acceleration * 0.9f + delta
-            if (acceleration > 12 && diff > 750) {
-                viewModel.onCorrect()
+
+            if (acceleration > 7 && diff > 750) {
+
+                    if (z > 0) {
+                        viewModel.onSkip()
+                        Timber.i("some bugs z: $z diff: $diff $acceleration")
+                    }else if (z < 0) {
+                        viewModel.onCorrect()
+                    }
+
                 lastDate = Date()
             }
 
