@@ -16,32 +16,32 @@
 
 package com.example.android.guesstheword.screens.game
 
+
 import android.content.Context
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.GameFragmentBinding
 import timber.log.Timber
 import java.util.*
 import kotlin.math.sqrt
-
-
-import androidx.navigation.fragment.navArgs
-import kotlin.math.abs
 
 
 class GameFragment : Fragment() {
@@ -107,6 +107,7 @@ class GameFragment : Fragment() {
             }
         })
 
+
         activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         return binding.root
 
@@ -137,9 +138,10 @@ class GameFragment : Fragment() {
 
                     if (z > 0 && x < 0) {
                         viewModel.onSkip()
-                        Timber.i("some bugs z: $z x: $x y: $y diff: $diff $acceleration")
+                        skipAnswer()
                     }else if (z < 0) {
                         viewModel.onCorrect()
+                        correctAnswer()
                     }
 
                 lastDate = Date()
@@ -161,6 +163,33 @@ class GameFragment : Fragment() {
     override fun onPause() {
         sensorManager!!.unregisterListener(sensorListener)
         super.onPause()
+    }
+
+
+    private fun correctAnswer(){
+        binding.gameLayout.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.ok_green_color, null))
+        object : CountDownTimer(1000, 50) {
+            override fun onTick(arg0: Long) {
+
+            }
+
+            override fun onFinish() {
+                binding.gameLayout.setBackgroundColor(Color.parseColor("#221946"))
+            }
+        }.start()
+    }
+
+    private fun skipAnswer(){
+        binding.gameLayout.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.skip_main_color, null))
+        object : CountDownTimer(1000, 50) {
+            override fun onTick(arg0: Long) {
+
+            }
+
+            override fun onFinish() {
+                binding.gameLayout.setBackgroundColor(Color.parseColor("#221946"))
+            }
+        }.start()
     }
 
 
