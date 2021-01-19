@@ -73,7 +73,7 @@ class GameFragment : Fragment() {
         Timber.i("ViewModelProvider is Called!")
 
         val gameFragmentArgs by navArgs<GameFragmentArgs>()
-        viewModelFactory = GameViewModelFactory(gameFragmentArgs.category)
+        viewModelFactory = GameViewModelFactory(activity!!.application, gameFragmentArgs.category)
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(GameViewModel::class.java)
 
@@ -107,7 +107,7 @@ class GameFragment : Fragment() {
             }
         })
 
-        changeBackground(true)
+//        changeBackground(true)
 
         activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         return binding.root

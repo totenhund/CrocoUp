@@ -28,4 +28,8 @@
     <color name="grey_button_color">#606060</color>
     <color name="white_text_color">#ffffff</color>
     <color name="skip_main_color">#f2484b</color>
+
+    <color name="temp1">#ffe0ac</color>
+    <color name="temp2">#ffacb7</color>
+    <color name="temp3">#6886c5</color>
 </resources>
