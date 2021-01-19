@@ -107,6 +107,7 @@ class GameFragment : Fragment() {
             }
         })
 
+        changeBackground(true)
 
         activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         return binding.root
@@ -136,13 +137,13 @@ class GameFragment : Fragment() {
 
             if (acceleration > 3 && diff > 750) {
 
-                    if (z > 0 && x < 0) {
-                        viewModel.onSkip()
-                        skipAnswer()
-                    }else if (z < 0) {
-                        viewModel.onCorrect()
-                        correctAnswer()
-                    }
+                if (z > 0 && x < 0) {
+                    viewModel.onSkip()
+                    changeBackground(false)
+                } else if (z < 0) {
+                    viewModel.onCorrect()
+                    changeBackground(true)
+                }
 
                 lastDate = Date()
             }
@@ -166,8 +167,19 @@ class GameFragment : Fragment() {
     }
 
 
-    private fun correctAnswer(){
-        binding.gameLayout.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.ok_green_color, null))
+    private fun changeBackground(hasGuessed: Boolean) {
+
+        if (hasGuessed) {
+            binding.gameLayout.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.ok_green_color, null))
+            binding.guessResultTextView.text = "CORRECT"
+        } else {
+            binding.gameLayout.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.skip_main_color, null))
+            binding.guessResultTextView.text = "PASSED"
+        }
+
+        binding.wordText.visibility = View.INVISIBLE
+        binding.scoreText.visibility = View.INVISIBLE
+
         object : CountDownTimer(1000, 50) {
             override fun onTick(arg0: Long) {
 
@@ -175,19 +187,9 @@ class GameFragment : Fragment() {
 
             override fun onFinish() {
                 binding.gameLayout.setBackgroundColor(Color.parseColor("#221946"))
-            }
-        }.start()
-    }
-
-    private fun skipAnswer(){
-        binding.gameLayout.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.skip_main_color, null))
-        object : CountDownTimer(1000, 50) {
-            override fun onTick(arg0: Long) {
-
-            }
-
-            override fun onFinish() {
-                binding.gameLayout.setBackgroundColor(Color.parseColor("#221946"))
+                binding.wordText.visibility = View.VISIBLE
+                binding.scoreText.visibility = View.VISIBLE
+                binding.guessResultTextView.text = ""
             }
         }.start()
     }
