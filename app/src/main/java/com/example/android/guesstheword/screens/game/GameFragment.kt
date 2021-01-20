@@ -24,6 +24,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.format.DateUtils
@@ -59,6 +60,9 @@ class GameFragment : Fragment() {
     private var now = Calendar.getInstance()
     var lastDate = Date()
 
+    private lateinit var mpCorrect: MediaPlayer
+    private lateinit var mpSkip: MediaPlayer
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -69,6 +73,9 @@ class GameFragment : Fragment() {
                 container,
                 false
         )
+
+        mpCorrect = MediaPlayer.create(activity!!, R.raw.correct)
+        mpSkip = MediaPlayer.create(activity!!, R.raw.skip)
 
         Timber.i("ViewModelProvider is Called!")
 
@@ -135,7 +142,7 @@ class GameFragment : Fragment() {
             val delta: Float = currentAcceleration - lastAcceleration
             acceleration = acceleration * 0.9f + delta
 
-            if (acceleration > 3 && diff > 750) {
+            if (acceleration > 3 && diff > 1001) {
 
                 if (z > 0 && x < 0) {
                     viewModel.onSkip()
@@ -172,9 +179,11 @@ class GameFragment : Fragment() {
         if (hasGuessed) {
             binding.gameLayout.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.ok_green_color, null))
             binding.guessResultTextView.text = "CORRECT"
+            mpCorrect.start()
         } else {
             binding.gameLayout.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.skip_main_color, null))
             binding.guessResultTextView.text = "PASSED"
+            mpSkip.start()
         }
 
         binding.wordText.visibility = View.INVISIBLE
@@ -190,6 +199,13 @@ class GameFragment : Fragment() {
                 binding.wordText.visibility = View.VISIBLE
                 binding.scoreText.visibility = View.VISIBLE
                 binding.guessResultTextView.text = ""
+
+//                if (mpCorrect.isPlaying){
+//                    mpCorrect.release()
+//                } else if(mpSkip.isPlaying){
+//                    mpSkip.release()
+//                }
+
             }
         }.start()
     }
