@@ -25,6 +25,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.media.MediaPlayer
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.format.DateUtils
@@ -77,12 +78,14 @@ class GameFragment : Fragment() {
         mpCorrect = MediaPlayer.create(activity!!, R.raw.correct)
         mpSkip = MediaPlayer.create(activity!!, R.raw.skip)
 
-        Timber.i("ViewModelProvider is Called!")
-
         val gameFragmentArgs by navArgs<GameFragmentArgs>()
         viewModelFactory = GameViewModelFactory(activity!!.application, gameFragmentArgs.category)
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(GameViewModel::class.java)
+
+
+        Timber.i("ViewModelProvider is Called!")
+
 
 
         sensorManager = activity!!.getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -114,7 +117,7 @@ class GameFragment : Fragment() {
             }
         })
 
-//        changeBackground(true)
+
 
         activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         return binding.root
@@ -150,6 +153,7 @@ class GameFragment : Fragment() {
                 } else if (z < 0.5) {
                     viewModel.onCorrect()
                     changeBackground(true)
+                    Timber.i("z:$z x:$x y:$y a:$acceleration diff: $diff")
                 }
 
                 lastDate = Date()
@@ -199,12 +203,6 @@ class GameFragment : Fragment() {
                 binding.wordText.visibility = View.VISIBLE
                 binding.scoreText.visibility = View.VISIBLE
                 binding.guessResultTextView.text = ""
-
-//                if (mpCorrect.isPlaying){
-//                    mpCorrect.release()
-//                } else if(mpSkip.isPlaying){
-//                    mpSkip.release()
-//                }
 
             }
         }.start()

@@ -8,6 +8,27 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="countdown_destination">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_gameCountdownFragment_to_game_destination2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="game_destination">
                     <value>
                       <LayoutPositions>
@@ -55,13 +76,13 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="29" />
-                            <option name="y" value="17" />
+                            <option name="x" value="-271" />
+                            <option name="y" value="67" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_title_to_game">
+                            <entry key="action_title_destination_to_gameCountdownFragment2">
                               <value>
                                 <LayoutPositions />
                               </value>

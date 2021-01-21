@@ -72,9 +72,9 @@ class GameViewModel(application: Application, wordCategory: Int) : AndroidViewMo
             override fun onTick(p0: Long) {
                 _currentTime.value = (p0 / ONE_SECOND)
             }
-        }
+        }.start()
 
-        timer.start()
+
         // DateUtils.formatElapsedTime()
     }
 
@@ -116,7 +116,7 @@ class GameViewModel(application: Application, wordCategory: Int) : AndroidViewMo
     }
 
     fun onSkip() {
-        _score.value = (score.value)?.minus(1)
+//        _score.value = (score.value)?.minus(1)
         nextWord()
     }
 
@@ -128,6 +128,5 @@ class GameViewModel(application: Application, wordCategory: Int) : AndroidViewMo
     fun onGameFinishComplete() {
         _eventGameFinish.value = false
     }
-
 
 }

@@ -96,7 +96,7 @@ class TitleFragment : Fragment() {
         binding.viewPager2.adapter = ViewPagerAdapter(tableNames) {
             Log.i("logi", "clicked at : $it")
             val wordCategory = it
-            val action = TitleFragmentDirections.actionTitleToGame(wordCategory)
+            val action = TitleFragmentDirections.actionTitleDestinationToGameCountdownFragment2(wordCategory)
             findNavController(this).navigate(action)
         }
         binding.viewPager2.offscreenPageLimit = 1

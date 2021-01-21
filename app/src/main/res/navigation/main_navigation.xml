@@ -25,13 +25,8 @@
         android:label="title_fragment"
         tools:layout="@layout/title_fragment">
         <action
-            android:id="@+id/action_title_to_game"
-            app:destination="@id/game_destination"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:launchSingleTop="true"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left" />
+            android:id="@+id/action_title_destination_to_gameCountdownFragment2"
+            app:destination="@id/countdown_destination" />
     </fragment>
     <fragment
         android:id="@+id/game_destination"
@@ -67,6 +62,19 @@
             app:popUpTo="@+id/title_destination" />
         <argument
             android:name="score"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/countdown_destination"
+        android:name="com.example.android.guesstheword.screens.countdown.GameCountdownFragment"
+        android:label="GameCountdownFragment" >
+        <action
+            android:id="@+id/action_gameCountdownFragment_to_game_destination2"
+            app:destination="@id/game_destination"
+            app:popUpTo="@+id/title_destination"/>
+        <argument
+            android:name="category"
             android:defaultValue="0"
             app:argType="integer" />
     </fragment>
