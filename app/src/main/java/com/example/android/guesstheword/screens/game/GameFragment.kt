@@ -142,12 +142,12 @@ class GameFragment : Fragment() {
             val delta: Float = currentAcceleration - lastAcceleration
             acceleration = acceleration * 0.9f + delta
 
-            if (acceleration > 3 && diff > 1001) {
+            if (acceleration > 2 && diff > 810) {
 
-                if (z > 0 && x < 0) {
+                if (z > 0.5 && x < 0) {
                     viewModel.onSkip()
                     changeBackground(false)
-                } else if (z < 0) {
+                } else if (z < 0.5) {
                     viewModel.onCorrect()
                     changeBackground(true)
                 }
@@ -189,7 +189,7 @@ class GameFragment : Fragment() {
         binding.wordText.visibility = View.INVISIBLE
         binding.scoreText.visibility = View.INVISIBLE
 
-        object : CountDownTimer(1000, 50) {
+        object : CountDownTimer(800, 50) {
             override fun onTick(arg0: Long) {
 
             }
