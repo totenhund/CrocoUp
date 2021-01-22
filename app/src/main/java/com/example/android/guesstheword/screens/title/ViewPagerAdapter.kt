@@ -18,6 +18,12 @@ class ViewPagerAdapter(private var names: ArrayList<String>, private val itemCli
             R.color.temp3
     )
 
+    private val icons = intArrayOf(
+            0x1F423,
+            0x1F4BB,
+            0x1F4DA
+    )
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerVH =
             ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_page, parent, false))
 
@@ -26,6 +32,9 @@ class ViewPagerAdapter(private var names: ArrayList<String>, private val itemCli
     override fun onBindViewHolder(holder: PagerVH, position: Int) = holder.itemView.run {
         tvTitle.text = names[position+1]
         play_card_container.setBackgroundResource(colors[position])
+        var unicode = Character.toChars(icons[position])
+        iconTextView.text = String(unicode)
+        Timber.i(R.string.animal.toString())
     }
 
     private inner class ItemViewHolder(itemView: View): PagerVH(itemView) {

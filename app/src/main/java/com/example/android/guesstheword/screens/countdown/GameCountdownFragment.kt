@@ -55,7 +55,7 @@ class GameCountdownFragment : Fragment() {
 
 
         viewModel.currentTime.observe(viewLifecycleOwner, Observer { newTime ->
-            binding.counterTextView.text = newTime.toString()
+            binding.counterTextView.text = (newTime+1).toString()
         })
 
         viewModel.timerFinish.observe(viewLifecycleOwner, Observer { isFinished ->

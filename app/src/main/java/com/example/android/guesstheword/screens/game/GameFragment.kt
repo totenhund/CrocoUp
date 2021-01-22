@@ -147,9 +147,10 @@ class GameFragment : Fragment() {
 
             if (acceleration > 2 && diff > 810) {
 
-                if (z > 0.5 && x < 0) {
+                if (z > -0.5) {
                     viewModel.onSkip()
                     changeBackground(false)
+                    Timber.i("z:$z x:$x y:$y a:$acceleration diff: $diff")
                 } else if (z < 0.5) {
                     viewModel.onCorrect()
                     changeBackground(true)
@@ -203,7 +204,6 @@ class GameFragment : Fragment() {
                 binding.wordText.visibility = View.VISIBLE
                 binding.scoreText.visibility = View.VISIBLE
                 binding.guessResultTextView.text = ""
-
             }
         }.start()
     }

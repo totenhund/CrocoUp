@@ -27,4 +27,7 @@
     <string name="quote_format">\"%s\"</string>
     <string name="score_format">Current Score: %d</string>
     <string name="title_screen_header">Choose topic\n&#127918; &#128293;</string>
+    <string name="animal">0x1F423</string>
+    <string name="job">0x1F468;</string>
+    <string name="idiom">0x1F4DA;</string>
 </resources>
