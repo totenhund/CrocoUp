@@ -18,4 +18,11 @@ object WordCategoryContract {
         const val TABLE_NAME = "idioms"
         const val WORD = "word"
     }
+
+    object CardEntry: BaseColumns {
+        const val TABLE_NAME = "Card"
+        const val TABLE_CARD = "table_card"
+        const val ICON = "icon"
+        const val COLOR = "color"
+    }
 }

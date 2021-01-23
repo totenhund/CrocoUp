@@ -82,7 +82,13 @@ class TitleFragment : Fragment() {
             }
             val newRowId = db?.insert(WordCategoryContract.WordCategoryEntryIdioms.TABLE_NAME, null, values)
         }
-
+//
+//        val c = db.rawQuery("SELECT * FROM animals", null)
+//        if (c != null){
+//            while (c.moveToNext()){
+//                Timber.i("Word: " + c.getString(1))
+//            }
+//        }
 
 
         var table = "table"
@@ -116,8 +122,6 @@ class TitleFragment : Fragment() {
         binding.viewPager2.addItemDecoration(itemDecoration)
 
         activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
-
 
 
         return binding.root
