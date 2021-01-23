@@ -200,7 +200,7 @@ class GameFragment : Fragment() {
             }
 
             override fun onFinish() {
-                binding.gameLayout.setBackgroundColor(Color.parseColor("#221946"))
+                binding.gameLayout.setBackgroundColor(Color.parseColor("#949cdf"))
                 binding.wordText.visibility = View.VISIBLE
                 binding.scoreText.visibility = View.VISIBLE
                 binding.guessResultTextView.text = ""

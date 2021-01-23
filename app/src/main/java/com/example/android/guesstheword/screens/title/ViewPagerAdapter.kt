@@ -19,9 +19,9 @@ class ViewPagerAdapter(private var names: ArrayList<String>, private val itemCli
     )
 
     private val icons = intArrayOf(
-            0x1F423,
-            0x1F4BB,
-            0x1F4DA
+            0x1F98A,
+            0x1F4BC,
+            0x1F929
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerVH =
