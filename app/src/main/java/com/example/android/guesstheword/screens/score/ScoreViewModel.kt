@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 /**
  * ViewModel for the final screen showing the score
  */
-class ScoreViewModel(finalScore: Int) : ViewModel() {
+class ScoreViewModel(finalScore: Int, wordCategory: String) : ViewModel() {
 
     private val _eventPlayAgain = MutableLiveData<Boolean>()
     val eventPlayAgain: LiveData<Boolean>
@@ -17,8 +17,14 @@ class ScoreViewModel(finalScore: Int) : ViewModel() {
     val score: LiveData<Int>
         get() = _score
 
+    private val _category = MutableLiveData<String>()
+    val category: LiveData<String>
+        get() = _category
+
+
     init {
         _score.value = finalScore
+        _category.value = wordCategory
     }
 
     fun onPlayAgain() {

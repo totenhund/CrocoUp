@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.android.guesstheword.screens.game.GameViewModel
 import timber.log.Timber
 
-class GameCountdownViewModel(wordCategory: Int) : ViewModel() {
+class GameCountdownViewModel(wordCategory: String) : ViewModel() {
 
     companion object {
         // when game is over
@@ -22,8 +22,8 @@ class GameCountdownViewModel(wordCategory: Int) : ViewModel() {
 
     private val timer: CountDownTimer
 
-    private val _category = MutableLiveData<Int>()
-    val category: LiveData<Int>
+    private val _category = MutableLiveData<String>()
+    val category: LiveData<String>
         get() = _category
 
     private val _currentTime = MutableLiveData<Long>()

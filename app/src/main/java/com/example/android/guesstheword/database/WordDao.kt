@@ -10,12 +10,15 @@ import androidx.room.Query
 interface WordDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addWord(word: Word)
+    fun addWord(word: Word)
 
-    @Query("SELECT * from word")
+    @Query("SELECT * from words")
     fun readAllData(): LiveData<List<Word>>
 
-    @Query("SELECT category from word")
-    fun readAllCategories(): List<String>
+    @Query("SELECT DISTINCT category from words")
+    fun readAllCategories(): LiveData<List<String>>
+
+    @Query("SELECT word FROM words WHERE category=:category")
+    fun readWordsByCategory(category: String): List<String>
 
 }

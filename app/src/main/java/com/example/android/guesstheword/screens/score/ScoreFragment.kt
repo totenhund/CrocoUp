@@ -29,6 +29,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.ScoreFragmentBinding
+import timber.log.Timber
 
 
 class ScoreFragment : Fragment() {
@@ -52,7 +53,7 @@ class ScoreFragment : Fragment() {
 
         val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
 
-        viewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score)
+        viewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score, scoreFragmentArgs.category)
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(ScoreViewModel::class.java)
 
@@ -66,7 +67,8 @@ class ScoreFragment : Fragment() {
         // Navigates back to title when button is pressed
         viewModel.eventPlayAgain.observe(viewLifecycleOwner, Observer { playAgain ->
             if (playAgain) {
-                findNavController().navigate(ScoreFragmentDirections.actionRestart())
+                Timber.i("Category: " + viewModel.category.value!!)
+                findNavController().navigate(ScoreFragmentDirections.actionRestart(viewModel.category.value!!))
                 viewModel.onPlayAgainComplete()
             }
         })

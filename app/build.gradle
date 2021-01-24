@@ -90,4 +90,6 @@ dependencies {
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
 
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+
 }

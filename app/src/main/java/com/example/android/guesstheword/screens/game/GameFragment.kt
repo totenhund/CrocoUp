@@ -83,6 +83,7 @@ class GameFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(GameViewModel::class.java)
 
+        
 
         Timber.i("ViewModelProvider is Called!")
 
@@ -111,7 +112,7 @@ class GameFragment : Fragment() {
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
             if (isFinished) {
                 val currentScore = viewModel.score.value ?: 0
-                val action = GameFragmentDirections.actionGameToScore(currentScore)
+                val action = GameFragmentDirections.actionGameToScore(currentScore, viewModel.category.value!!)
                 findNavController(this).navigate(action)
                 viewModel.onGameFinishComplete()
             }

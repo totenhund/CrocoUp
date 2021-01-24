@@ -44,8 +44,8 @@
             app:popUpTo="@+id/title_destination" />
         <argument
             android:name="category"
-            android:defaultValue="0"
-            app:argType="integer" />
+            android:defaultValue="animals"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/score_destination"
@@ -54,16 +54,25 @@
         tools:layout="@layout/score_fragment">
         <action
             android:id="@+id/action_restart"
-            app:destination="@+id/game_destination"
+            app:destination="@id/countdown_destination"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@+id/title_destination" />
+            app:popUpTo="@+id/title_destination" >
+            <argument
+                android:name="category"
+                app:argType="string" />
+        </action>
         <argument
             android:name="score"
             android:defaultValue="0"
             app:argType="integer" />
+        <argument
+            android:name="category"
+            app:argType="string"
+            android:defaultValue="animal"
+            />
     </fragment>
     <fragment
         android:id="@+id/countdown_destination"
@@ -75,7 +84,7 @@
             app:popUpTo="@+id/title_destination"/>
         <argument
             android:name="category"
-            android:defaultValue="0"
-            app:argType="integer" />
+            android:defaultValue="animals"
+            app:argType="string" />
     </fragment>
 </navigation>

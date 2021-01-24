@@ -10,7 +10,9 @@ import com.example.android.guesstheword.database.WordReaderDbHelper
 import kotlinx.android.synthetic.main.item_page.view.*
 import timber.log.Timber
 
-class ViewPagerAdapter(private var names: ArrayList<String>, private val itemClickListener: (Int) -> (Unit)) : RecyclerView.Adapter<PagerVH>() {
+class ViewPagerAdapter(private val itemClickListener: (String) -> (Unit)) : RecyclerView.Adapter<PagerVH>() {
+
+    private var categoryList = emptyList<String>()
 
     private val colors = intArrayOf(
             R.color.temp1,
@@ -27,14 +29,18 @@ class ViewPagerAdapter(private var names: ArrayList<String>, private val itemCli
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerVH =
             ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_page, parent, false))
 
-    override fun getItemCount(): Int = names.size - 1
+    override fun getItemCount(): Int = categoryList.size
 
     override fun onBindViewHolder(holder: PagerVH, position: Int) = holder.itemView.run {
-        tvTitle.text = names[position+1]
+        tvTitle.text = categoryList[position]
         play_card_container.setBackgroundResource(colors[position])
         var unicode = Character.toChars(icons[position])
         iconTextView.text = String(unicode)
-        Timber.i(R.string.animal.toString())
+    }
+
+    fun setData(categories: List<String>){
+        this.categoryList = categories
+        notifyDataSetChanged()
     }
 
     private inner class ItemViewHolder(itemView: View): PagerVH(itemView) {
@@ -42,7 +48,7 @@ class ViewPagerAdapter(private var names: ArrayList<String>, private val itemCli
         init {
             itemView.setOnClickListener {
                 Timber.i("Working")
-                itemClickListener(adapterPosition)
+                itemClickListener(categoryList[adapterPosition])
             }
         }
     }

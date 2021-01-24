@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "word")
+@Entity(tableName = "words")
 data class Word(
         @PrimaryKey(autoGenerate = true)
         val uid: Int,
@@ -12,11 +12,9 @@ data class Word(
         @ColumnInfo(name = "category") val category: String?
 )
 
-@Entity(tableName = "card")
+@Entity(tableName = "cards")
 data class Card(
-        @PrimaryKey(autoGenerate = true)
-        val uid: Int,
-        @ColumnInfo(name = "category") val word: String?,
+        @PrimaryKey(autoGenerate = false) val category: String?,
         @ColumnInfo(name = "color") val color: String?,
         @ColumnInfo(name = "icon") val icon: Int?
 )

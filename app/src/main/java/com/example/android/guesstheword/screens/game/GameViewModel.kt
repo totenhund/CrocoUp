@@ -7,11 +7,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.android.guesstheword.database.Repository
+import com.example.android.guesstheword.database.WordDatabase
 import com.example.android.guesstheword.database.WordReaderDbHelper
 import timber.log.Timber
 
 
-class GameViewModel(application: Application, wordCategory: Int) : AndroidViewModel(application) {
+class GameViewModel(application: Application, wordCategory: String) : AndroidViewModel(application) {
 
     companion object {
         // when game is over
@@ -21,16 +23,13 @@ class GameViewModel(application: Application, wordCategory: Int) : AndroidViewMo
         private const val ONE_SECOND = 1000L
 
         // total time of game
-        private const val COUNTDOWN_TIME = 60000L
+        private const val COUNTDOWN_TIME = 6000L
     }
 
     private val timer: CountDownTimer
 
-    private var dbHelper = WordReaderDbHelper(application)
-    val db = dbHelper.writableDatabase
-
-    private val _category = MutableLiveData<Int>()
-    val category: LiveData<Int>
+    private val _category = MutableLiveData<String>()
+    val category: LiveData<String>
         get() = _category
     //
 
@@ -50,6 +49,7 @@ class GameViewModel(application: Application, wordCategory: Int) : AndroidViewMo
 
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
+    var wordLiveList: List<String>
 
     private val _eventGameFinish = MutableLiveData<Boolean>()
     val eventGameFinish: LiveData<Boolean>
@@ -57,6 +57,10 @@ class GameViewModel(application: Application, wordCategory: Int) : AndroidViewMo
 
     init {
         Timber.i("GameViewModel is created!")
+        val wordDao = WordDatabase.getDatabase(application).wordDao()
+        val rep = Repository(wordDao)
+        wordLiveList = rep.readWordsByCategory(wordCategory)
+        Timber.i("Init word list size ${wordLiveList.size}")
         _category.value = wordCategory
         resetList()
         nextWord()
@@ -89,17 +93,10 @@ class GameViewModel(application: Application, wordCategory: Int) : AndroidViewMo
      */
     private fun resetList() {
         wordList = mutableListOf()
-        var tableName = "animals"
-        if (_category.value == 1) {
-            tableName = "jobs"
-        } else if(_category.value == 2) {
-            tableName = "idioms"
+        for (word in wordLiveList) {
+            wordList.add(word)
         }
-        var cursor = db.rawQuery("SELECT * FROM $tableName", null)
-        while (cursor.moveToNext()) {
-            wordList.add(cursor.getString(1))
-        }
-
+        Timber.i("word list size: %s", wordLiveList.size.toString())
         wordList.shuffle()
     }
 
@@ -128,5 +125,6 @@ class GameViewModel(application: Application, wordCategory: Int) : AndroidViewMo
     fun onGameFinishComplete() {
         _eventGameFinish.value = false
     }
+
 
 }
