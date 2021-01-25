@@ -16,7 +16,6 @@
 
 package com.example.android.guesstheword.screens.title
 
-import android.content.ContentValues
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
@@ -27,24 +26,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.database.*
 import com.example.android.guesstheword.databinding.TitleFragmentBinding
-import com.example.android.guesstheword.screens.game.GameFragmentArgs
-import com.example.android.guesstheword.screens.game.GameViewModel
-import com.example.android.guesstheword.screens.game.GameViewModelFactory
-import kotlinx.coroutines.CoroutineScope
 import timber.log.Timber
 import kotlin.math.abs
 
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 /**
@@ -79,12 +71,12 @@ class TitleFragment : Fragment() {
 
 
 //
-//        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-//
-//            val wordDao = WordDatabase.getDatabase(activity!!.application).wordDao()
-//            val cardDao = WordDatabase.getDatabase(activity!!.application).cardDao()
-//            val rep = Repository(wordDao, cardDao)
-//
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+
+            val wordDao = WordDatabase.getDatabase(activity!!.application).wordDao()
+            val cardDao = WordDatabase.getDatabase(activity!!.application).cardDao()
+            val rep = Repository(wordDao, cardDao)
+
 //            for(w in animals){
 //                var word = Word(0, w, "animal")
 //                rep.addWord(word)
@@ -102,13 +94,15 @@ class TitleFragment : Fragment() {
 //                rep.addWord(word)
 //            }
 //
+//
 //            var animal = Card("animal", colors[0], icons[0])
 //            var job = Card("jobs", colors[1], icons[1])
 //            var idiom = Card("idioms", colors[2], icons[2])
 //            rep.addCard(animal)
 //            rep.addCard(job)
 //            rep.addCard(idiom)
-//        }
+
+        }
 
 
         viewModelFactory = TitleViewModelFactory(activity!!.application)
@@ -126,6 +120,14 @@ class TitleFragment : Fragment() {
         binding.viewPager2.offscreenPageLimit = 1
         titleViewModel.readAllCategories.observe(viewLifecycleOwner, Observer {
             adapter.setData(it)
+        })
+
+        titleViewModel.allIcons.observe(viewLifecycleOwner, Observer {
+            adapter.setIcons(it)
+        })
+
+        titleViewModel.allColors.observe(viewLifecycleOwner, Observer {
+            adapter.setColors(it)
         })
 
 

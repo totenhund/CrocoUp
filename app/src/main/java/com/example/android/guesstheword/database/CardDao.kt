@@ -9,13 +9,13 @@ import androidx.room.Query
 @Dao
 interface CardDao {
 
-//    @Insert(onConflict = OnConflictStrategy.IGNORE)
-//    fun addCard(card: Card)
-//
-//    @Query("SELECT color from cards WHERE category=:category")
-//    fun readColorByCategory(category: String): String
-//
-//    @Query("SELECT icon FROM cards WHERE category=:category")
-//    fun readIconByCategory(category: String): Int
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun addCard(card: Card)
+
+    @Query("SELECT color from cards ORDER BY category")
+    fun readColors(): LiveData<List<String>>
+
+    @Query("SELECT icon FROM cards ORDER BY category")
+    fun readIcons(): LiveData<List<Int>>
 
 }

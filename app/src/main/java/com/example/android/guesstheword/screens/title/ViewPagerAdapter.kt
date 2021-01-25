@@ -1,5 +1,6 @@
 package com.example.android.guesstheword.screens.title
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,17 +15,9 @@ class ViewPagerAdapter(private val itemClickListener: (String) -> (Unit)) : Recy
 
     private var categoryList = emptyList<String>()
 
-    private val colors = intArrayOf(
-            R.color.temp1,
-            R.color.temp2,
-            R.color.temp3
-    )
+    private var colors = emptyList<String>()
 
-    private val icons = intArrayOf(
-            0x1F98A,
-            0x1F4BC,
-            0x1F929
-    )
+    private var icons = emptyList<Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerVH =
             ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_page, parent, false))
@@ -33,13 +26,23 @@ class ViewPagerAdapter(private val itemClickListener: (String) -> (Unit)) : Recy
 
     override fun onBindViewHolder(holder: PagerVH, position: Int) = holder.itemView.run {
         tvTitle.text = categoryList[position]
-        play_card_container.setBackgroundResource(colors[position])
+        play_card_container.setBackgroundColor(Color.parseColor(colors[position]))
         var unicode = Character.toChars(icons[position])
         iconTextView.text = String(unicode)
     }
 
     fun setData(categories: List<String>){
         this.categoryList = categories
+        notifyDataSetChanged()
+    }
+
+    fun setIcons(icons: List<Int>){
+        this.icons = icons
+        notifyDataSetChanged()
+    }
+
+    fun setColors(colors: List<String>){
+        this.colors = colors
         notifyDataSetChanged()
     }
 

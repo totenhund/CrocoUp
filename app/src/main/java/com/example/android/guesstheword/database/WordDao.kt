@@ -15,7 +15,7 @@ interface WordDao {
     @Query("SELECT * from words")
     fun readAllData(): LiveData<List<Word>>
 
-    @Query("SELECT DISTINCT category from words")
+    @Query("SELECT DISTINCT category from words ORDER BY category")
     fun readAllCategories(): LiveData<List<String>>
 
     @Query("SELECT word FROM words WHERE category=:category")

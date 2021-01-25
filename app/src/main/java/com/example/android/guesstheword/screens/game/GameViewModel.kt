@@ -58,7 +58,8 @@ class GameViewModel(application: Application, wordCategory: String) : AndroidVie
     init {
         Timber.i("GameViewModel is created!")
         val wordDao = WordDatabase.getDatabase(application).wordDao()
-        val rep = Repository(wordDao)
+        val cardDao = WordDatabase.getDatabase(application).cardDao()
+        val rep = Repository(wordDao, cardDao)
         wordLiveList = rep.readWordsByCategory(wordCategory)
         Timber.i("Init word list size ${wordLiveList.size}")
         _category.value = wordCategory

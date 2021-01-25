@@ -2,7 +2,7 @@ package com.example.android.guesstheword.database
 
 import androidx.lifecycle.LiveData
 
-class Repository(private val wordDao: WordDao) {
+class Repository(private val wordDao: WordDao, private val cardDao: CardDao) {
 
     val readAllData: LiveData<List<Word>> = wordDao.readAllData()
     val readAllCategories: LiveData<List<String>> = wordDao.readAllCategories()
@@ -12,12 +12,11 @@ class Repository(private val wordDao: WordDao) {
         wordDao.addWord(word)
     }
 
-//    fun readColorByCategory(category: String): String = cardDao.readColorByCategory(category)
-//    fun readIconByCategory(category: String): Int = cardDao.readIconByCategory(category)
-//
-//    fun addCard(card: Card) {
-//        cardDao.addCard(card)
-//    }
+    val readColors: LiveData<List<String>> = cardDao.readColors()
+    val readIcons: LiveData<List<Int>> = cardDao.readIcons()
 
+    fun addCard(card: Card) {
+        cardDao.addCard(card)
+    }
 
 }

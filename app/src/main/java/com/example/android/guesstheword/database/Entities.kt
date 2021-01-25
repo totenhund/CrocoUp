@@ -1,5 +1,6 @@
 package com.example.android.guesstheword.database
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -14,7 +15,7 @@ data class Word(
 
 @Entity(tableName = "cards")
 data class Card(
-        @PrimaryKey(autoGenerate = false) val category: String?,
+        @PrimaryKey val category: String,
         @ColumnInfo(name = "color") val color: String?,
         @ColumnInfo(name = "icon") val icon: Int?
 )

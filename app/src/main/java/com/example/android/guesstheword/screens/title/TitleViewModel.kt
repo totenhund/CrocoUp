@@ -9,11 +9,16 @@ import com.example.android.guesstheword.database.WordDatabase
 class TitleViewModel(application: Application): AndroidViewModel(application) {
 
     val readAllCategories: LiveData<List<String>>
+    val allIcons: LiveData<List<Int>>
+    val allColors: LiveData<List<String>>
 
     init {
         val wordDao = WordDatabase.getDatabase(application).wordDao()
-        val rep = Repository(wordDao)
+        val cardDao = WordDatabase.getDatabase(application).cardDao()
+        val rep = Repository(wordDao, cardDao)
         readAllCategories = rep.readAllCategories
+        allIcons = rep.readIcons
+        allColors = rep.readColors
     }
 
 }

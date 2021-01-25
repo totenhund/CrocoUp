@@ -83,7 +83,7 @@ class GameFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(GameViewModel::class.java)
 
-        
+
 
         Timber.i("ViewModelProvider is Called!")
 
@@ -133,8 +133,6 @@ class GameFragment : Fragment() {
             now = Calendar.getInstance()
             now.time = Date()
             diff = now.timeInMillis - last.timeInMillis
-
-//            Timber.i("Diff%s", diff.toString())
 
             val x = event.values[0]
             val y = event.values[1]
