@@ -21,11 +21,11 @@ abstract class WordDatabase : RoomDatabase() {
                 return tempInstance
             }
             synchronized(this) {
-                val instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        WordDatabase::class.java,
-                        "database"
-                ).allowMainThreadQueries().build()
+                val instance = Room.databaseBuilder(context.applicationContext, WordDatabase::class.java, "Database")
+                        .createFromAsset("database/word_database.db")
+                        .allowMainThreadQueries()
+                        .fallbackToDestructiveMigration()
+                        .build()
                 INSTANCE = instance
                 return instance
             }
