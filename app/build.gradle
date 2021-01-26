@@ -90,6 +90,10 @@ dependencies {
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
 
+    // for coroutine
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+
+    // translation ml kit
+    implementation 'com.google.mlkit:translate:16.1.1'
 
 }
