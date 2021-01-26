@@ -59,7 +59,7 @@ class TitleFragment : Fragment() {
                 inflater, R.layout.title_fragment, container, false)
 
 
-        viewModelFactory = TitleViewModelFactory(activity!!.application)
+        viewModelFactory = TitleViewModelFactory(requireActivity().application)
         titleViewModel = ViewModelProvider(this, viewModelFactory)
                 .get(TitleViewModel::class.java)
 
@@ -94,36 +94,37 @@ class TitleFragment : Fragment() {
         }
         binding.viewPager2.setPageTransformer(pageTransformer)
         val itemDecoration = HorizontalMarginItemDecoration(
-                context!!,
+                requireContext(),
                 R.dimen.viewpager_current_item_horizontal_margin
         )
         binding.viewPager2.addItemDecoration(itemDecoration)
 
-        activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
-        val options = TranslatorOptions.Builder()
-                .setSourceLanguage(TranslateLanguage.ENGLISH)
-                .setTargetLanguage(TranslateLanguage.RUSSIAN)
-                .build()
 
-        val englishRussianTranslator = Translation.getClient(options)
-
-        var conditions = DownloadConditions.Builder()
-                .requireWifi()
-                .build()
-        englishRussianTranslator.downloadModelIfNeeded(conditions)
-                .addOnSuccessListener {
-                    englishRussianTranslator.translate("Actor Johnny Depp")
-                            .addOnSuccessListener { translatedText ->
-                                Toast.makeText(activity!!, translatedText, Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnFailureListener { exception ->
-                                Timber.i("Not translated")
-                            }
-                }
-                .addOnFailureListener { exception ->
-                    Timber.i("model is not downloaded")
-                }
+//        val options = TranslatorOptions.Builder()
+//                .setSourceLanguage(TranslateLanguage.ENGLISH)
+//                .setTargetLanguage(TranslateLanguage.RUSSIAN)
+//                .build()
+//
+//        val englishRussianTranslator = Translation.getClient(options)
+//
+//        var conditions = DownloadConditions.Builder()
+//                .requireWifi()
+//                .build()
+//        englishRussianTranslator.downloadModelIfNeeded(conditions)
+//                .addOnSuccessListener {
+//                    englishRussianTranslator.translate("Actor Johnny Depp")
+//                            .addOnSuccessListener { translatedText ->
+//                                Toast.makeText(activity!!, translatedText, Toast.LENGTH_SHORT).show()
+//                            }
+//                            .addOnFailureListener { exception ->
+//                                Timber.i("Not translated")
+//                            }
+//                }
+//                .addOnFailureListener { exception ->
+//                    Timber.i("model is not downloaded")
+//                }
 
         return binding.root
     }

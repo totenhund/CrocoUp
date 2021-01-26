@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Guess the Word</string>
+    <string name="title_text">Угадайте слово!</string>
+    <string name="skip">Пропустить</string>
+    <string name="play_again">Играть заново</string>
+    <string name="play_button">Играть</string>
+    <string name="title_screen_header">Выберите тему\n&#127918; &#128293;</string>
+    <string name="get_ready">Внимание</string>
+    <string name="you_scored">Ваш счет</string>
+    <string name="word_is">Ваше слово...</string>
+    <string name="score_format">Счет: %d</string>
+    <string name="correct_answer">ПРАВИЛЬНО</string>
+    <string name="pass_answer">ПРОПУЩЕНО</string>
+    <string name="be_ready">Внимание</string>
+</resources>

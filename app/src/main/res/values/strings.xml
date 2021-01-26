@@ -22,12 +22,12 @@
     <string name="title_text">guess the word!</string>
     <string name="play_button">Play</string>
     <string name="get_ready">Get ready to</string>
-    <string name="got_it">Got it</string>
+    <string name="got_it" translatable="false">Got it</string>
     <string name="word_is">The word is…</string>
-    <string name="quote_format">\"%s\"</string>
+    <string name="quote_format" translatable="false">\"%s\"</string>
     <string name="score_format">Current Score: %d</string>
     <string name="title_screen_header">Choose topic\n&#127918; &#128293;</string>
-    <string name="animal">0x1F423</string>
-    <string name="job">0x1F468;</string>
-    <string name="idiom">0x1F4DA;</string>
+    <string name="correct_answer">CORRECT</string>
+    <string name="pass_answer">PASS</string>
+    <string name="be_ready">Be ready</string>
 </resources>

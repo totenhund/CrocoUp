@@ -182,11 +182,11 @@ class GameFragment : Fragment() {
 
         if (hasGuessed) {
             binding.gameLayout.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.ok_green_color, null))
-            binding.guessResultTextView.text = "CORRECT"
+            binding.guessResultTextView.setText(R.string.correct_answer)
             mpCorrect.start()
         } else {
             binding.gameLayout.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.skip_main_color, null))
-            binding.guessResultTextView.text = "PASSED"
+            binding.guessResultTextView.setText(R.string.pass_answer)
             mpSkip.start()
         }
 

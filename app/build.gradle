@@ -96,4 +96,7 @@ dependencies {
     // translation ml kit
     implementation 'com.google.mlkit:translate:16.1.1'
 
+    // locale
+    
+
 }
