@@ -19,7 +19,7 @@
             android:animateLayoutChanges="true"
             android:fontFamily="sans-serif"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textSize="50sp"
+            android:textSize="40sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@+id/score_text"
             app:layout_constraintEnd_toEndOf="parent"

@@ -42,12 +42,12 @@ import kotlin.math.abs
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 
 /**
  * Fragment for the starting or title screen of the app
  */
 class TitleFragment : Fragment() {
-
 
     private lateinit var titleViewModel: TitleViewModel
     private lateinit var viewModelFactory: TitleViewModelFactory
@@ -101,30 +101,7 @@ class TitleFragment : Fragment() {
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
-
-//        val options = TranslatorOptions.Builder()
-//                .setSourceLanguage(TranslateLanguage.ENGLISH)
-//                .setTargetLanguage(TranslateLanguage.RUSSIAN)
-//                .build()
-//
-//        val englishRussianTranslator = Translation.getClient(options)
-//
-//        var conditions = DownloadConditions.Builder()
-//                .requireWifi()
-//                .build()
-//        englishRussianTranslator.downloadModelIfNeeded(conditions)
-//                .addOnSuccessListener {
-//                    englishRussianTranslator.translate("Actor Johnny Depp")
-//                            .addOnSuccessListener { translatedText ->
-//                                Toast.makeText(activity!!, translatedText, Toast.LENGTH_SHORT).show()
-//                            }
-//                            .addOnFailureListener { exception ->
-//                                Timber.i("Not translated")
-//                            }
-//                }
-//                .addOnFailureListener { exception ->
-//                    Timber.i("model is not downloaded")
-//                }
+        Timber.i(Locale.getDefault().language)
 
         return binding.root
     }

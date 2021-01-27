@@ -11,6 +11,7 @@ import com.example.android.guesstheword.database.Repository
 import com.example.android.guesstheword.database.WordDatabase
 import com.example.android.guesstheword.database.WordReaderDbHelper
 import timber.log.Timber
+import java.util.*
 
 
 class GameViewModel(application: Application, wordCategory: String) : AndroidViewModel(application) {
@@ -23,7 +24,7 @@ class GameViewModel(application: Application, wordCategory: String) : AndroidVie
         private const val ONE_SECOND = 1000L
 
         // total time of game
-        private const val COUNTDOWN_TIME = 6000L
+        private const val COUNTDOWN_TIME = 60000L
     }
 
     private val timer: CountDownTimer
@@ -60,9 +61,13 @@ class GameViewModel(application: Application, wordCategory: String) : AndroidVie
         val wordDao = WordDatabase.getDatabase(application).wordDao()
         val cardDao = WordDatabase.getDatabase(application).cardDao()
         val rep = Repository(wordDao, cardDao)
-        wordLiveList = rep.readWordsByCategory(wordCategory)
-        Timber.i("Init word list size ${wordLiveList.size}")
         _category.value = wordCategory
+        wordLiveList = if (Locale.getDefault().language == "ru"){
+            rep.readWordsRuByCategoryRu(wordCategory)
+        }else{
+            rep.readWordsByCategory(wordCategory)
+        }
+        Timber.i("Init word list size ${wordLiveList.size}")
         resetList()
         nextWord()
         _score.value = 0

@@ -26,6 +26,7 @@ abstract class WordDatabase : RoomDatabase() {
                         .allowMainThreadQueries()
                         .fallbackToDestructiveMigration()
                         .build()
+
                 INSTANCE = instance
                 return instance
             }
