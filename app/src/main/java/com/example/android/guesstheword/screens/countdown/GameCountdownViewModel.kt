@@ -17,7 +17,7 @@ class GameCountdownViewModel(wordCategory: String) : ViewModel() {
         private const val ONE_SECOND = 1000L
 
         // total time of game
-        private const val COUNTDOWN_TIME = 3000L
+        private const val COUNTDOWN_TIME = 4000L
     }
 
     private val timer: CountDownTimer
@@ -36,7 +36,6 @@ class GameCountdownViewModel(wordCategory: String) : ViewModel() {
 
     init {
         _category.value = wordCategory
-
 
         timer = object : CountDownTimer(GameCountdownViewModel.COUNTDOWN_TIME, GameCountdownViewModel.ONE_SECOND) {
             override fun onFinish() {

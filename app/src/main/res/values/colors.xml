@@ -29,8 +29,6 @@
     <color name="white_text_color">#ffffff</color>
     <color name="skip_main_color">#f2484b</color>
 
-    <color name="temp1">#faf0af</color>
-    <color name="temp2">#a3ddcb</color>
-    <color name="temp3">#cd5d7d</color>
+    <color name="transparent">#00FFFFFF</color>
 
 </resources>

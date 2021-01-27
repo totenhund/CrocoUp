@@ -22,6 +22,7 @@ import com.example.android.guesstheword.screens.score.ScoreFragmentArgs
 import com.example.android.guesstheword.screens.score.ScoreViewModel
 import com.example.android.guesstheword.screens.score.ScoreViewModelFactory
 import com.example.android.guesstheword.screens.title.TitleFragmentDirections
+import timber.log.Timber
 
 class GameCountdownFragment : Fragment() {
 
@@ -55,7 +56,8 @@ class GameCountdownFragment : Fragment() {
 
 
         viewModel.currentTime.observe(viewLifecycleOwner, Observer { newTime ->
-            binding.counterTextView.text = (newTime+1).toString()
+            binding.counterTextView.text = (newTime).toString()
+
         })
 
         viewModel.timerFinish.observe(viewLifecycleOwner, Observer { isFinished ->
@@ -65,7 +67,7 @@ class GameCountdownFragment : Fragment() {
                 viewModel.onTimerComplete()
             }
         })
-
+        binding.circularProgressBar.setProgressWithAnimation(100f, 3500)
         return binding.root
     }
 

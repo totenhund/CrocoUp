@@ -25,9 +25,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.media.MediaPlayer
-import android.opengl.Visibility
-import android.os.Bundle
-import android.os.CountDownTimer
+import android.os.*
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -111,6 +109,7 @@ class GameFragment : Fragment() {
 
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isFinished ->
             if (isFinished) {
+                vibrateOnFinish()
                 val currentScore = viewModel.score.value ?: 0
                 val action = GameFragmentDirections.actionGameToScore(currentScore, viewModel.category.value!!)
                 findNavController(this).navigate(action)
@@ -144,13 +143,13 @@ class GameFragment : Fragment() {
             val delta: Float = currentAcceleration - lastAcceleration
             acceleration = acceleration * 0.9f + delta
 
-            if (acceleration > 2 && diff > 810) {
+            if (acceleration > 3 && diff > 810) {
 
-                if (z > -0.5) {
+                if (z > 0.5 && y < 9) {
                     viewModel.onSkip()
                     changeBackground(false)
                     Timber.i("z:$z x:$x y:$y a:$acceleration diff: $diff")
-                } else if (z < 0.5) {
+                } else if (z < 0.5 && y < 9) {
                     viewModel.onCorrect()
                     changeBackground(true)
                     Timber.i("z:$z x:$x y:$y a:$acceleration diff: $diff")
@@ -207,5 +206,15 @@ class GameFragment : Fragment() {
         }.start()
     }
 
+    private fun vibrateOnFinish(){
+        val vibrator = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= 26) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(400, VibrationEffect.DEFAULT_AMPLITUDE))
+            }
+        } else {
+            vibrator.vibrate(400)
+        }
+    }
 
 }
