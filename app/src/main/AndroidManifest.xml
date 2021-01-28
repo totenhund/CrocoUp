@@ -16,26 +16,27 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.android.guesstheword">
+    package="com.shpek.crocoup.guesstheword">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".screens.logs.PusherApplication"
+        android:name="com.shpek.crocoup.guesstheword.screens.logs.PusherApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_guess_it"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_guess_it_round"
+        android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
+        android:versionCode="5"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
         <!-- Screen locked to landscape for easier play -->
         <!-- configChanges attribute makes the following actions NOT cause a config change  -->
         <!-- screenOrientation attribute sets the default animation-->
-        <activity android:name=".MainActivity">
+        <activity android:name="com.shpek.crocoup.guesstheword.MainActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

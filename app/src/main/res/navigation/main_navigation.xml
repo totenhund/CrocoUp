@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/title_destination"
-        android:name="com.example.android.guesstheword.screens.title.TitleFragment"
+        android:name="com.shpek.crocoup.guesstheword.screens.title.TitleFragment"
         android:label="title_fragment"
         tools:layout="@layout/title_fragment">
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/game_destination"
-        android:name="com.example.android.guesstheword.screens.game.GameFragment"
+        android:name="com.shpek.crocoup.guesstheword.screens.game.GameFragment"
         android:label="game_fragment"
         tools:layout="@layout/game_fragment">
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/score_destination"
-        android:name="com.example.android.guesstheword.screens.score.ScoreFragment"
+        android:name="com.shpek.crocoup.guesstheword.screens.score.ScoreFragment"
         android:label="score_fragment"
         tools:layout="@layout/score_fragment">
         <action
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/countdown_destination"
-        android:name="com.example.android.guesstheword.screens.countdown.GameCountdownFragment"
+        android:name="com.shpek.crocoup.guesstheword.screens.countdown.GameCountdownFragment"
         android:label="GameCountdownFragment" >
         <action
             android:id="@+id/action_gameCountdownFragment_to_game_destination2"
