@@ -5,8 +5,8 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/50aeaeebb56a4d28a4e3d8d91ff4c2b0)](https://app.codacy.com/gh/totenhund/guess-it-game?utm_source=github.com&utm_medium=referral&utm_content=totenhund/guess-it-game&utm_campaign=Badge_Grade)
 
 CrocoUp is a game inspired by the "Crocodile" and "Who am I" games.
-![alt text](https://github.com/totenhund/guess-it-game/blob/master/screenshots/screen1.jpg = 300x600)
-![alt text](https://github.com/totenhund/guess-it-game/blob/master/screenshots/screen2.jpg = 300x600)
+![alt text](https://github.com/totenhund/guess-it-game/blob/master/screenshots/screen1.jpg?raw=true)
+![alt text](https://github.com/totenhund/guess-it-game/blob/master/screenshots/screen2.jpg?raw=true)
 ### Tech
 
 CrocoUp uses a number of open source projects and libraries to work properly:
