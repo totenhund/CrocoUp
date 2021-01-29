@@ -9,7 +9,7 @@ CrocoUp is a game inspired by the "Crocodile" and "Who am I" games.
 
 ![alt text](https://github.com/totenhund/guess-it-game/blob/master/screenshots/screen1.jpg?raw=true)
 ![alt text](https://github.com/totenhund/guess-it-game/blob/master/screenshots/screen2.jpg?raw=true)
-### Tech
+### Libraries
 
 CrocoUp uses a number of open source projects and libraries to work properly:
 
