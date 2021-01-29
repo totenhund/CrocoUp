@@ -1,4 +1,4 @@
-![alt text](https://github.com/[totenhund]/[guess-it-game]/tree/[master]/screenshots/gitbanner.png?raw=true)
+![alt text](https://github.com/totenhund/guess-it-game/blob/master/screenshots/gitbanner.png?raw=true)
 
 # CrocoUp
 
