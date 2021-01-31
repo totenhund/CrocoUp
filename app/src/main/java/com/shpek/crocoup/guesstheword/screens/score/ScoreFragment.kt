@@ -1,22 +1,20 @@
 package com.shpek.crocoup.guesstheword.screens.score
 
-import android.content.pm.ActivityInfo
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import android.content.pm.ActivityInfo
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.shpek.crocoup.guesstheword.R
 import com.shpek.crocoup.guesstheword.databinding.ScoreFragmentBinding
 
-/*
-* Fragment for final score
-* */
+
 class ScoreFragment : Fragment() {
 
     private lateinit var viewModel: ScoreViewModel
