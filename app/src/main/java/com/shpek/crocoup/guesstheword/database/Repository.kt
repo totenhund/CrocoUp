@@ -2,7 +2,10 @@ package com.shpek.crocoup.guesstheword.database
 
 import androidx.lifecycle.LiveData
 
-// class to access database
+/*
+*class to access database
+*
+* */
 class Repository(private val wordDao: WordDao, private val cardDao: CardDao) {
 
     @Suppress("unused")

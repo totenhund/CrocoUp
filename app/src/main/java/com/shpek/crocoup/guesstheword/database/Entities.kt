@@ -4,7 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-// Entries for database
+/*
+*Entries for database
+* */
 @Entity(tableName = "words")
 data class Word(
         @PrimaryKey(autoGenerate = true)

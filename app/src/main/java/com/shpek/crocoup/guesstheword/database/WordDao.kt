@@ -6,7 +6,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
-// word dao
+/*
+*word dao
+* */
 @Dao
 interface WordDao {
 
