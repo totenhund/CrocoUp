@@ -18,5 +18,3 @@ CrocoUp uses a number of open source projects and libraries to work properly:
 *[Timber](https://github.com/JakeWharton/timber) - library for simple and comfortable logs
 *[AndroidX](https://developer.android.com/jetpack/androidx) - provide backward compatibility across Android releases.
 *[ViewPager2](https://developer.android.com/jetpack/androidx/releases/viewpager2) - widget to develop swipeable screens
-
-
