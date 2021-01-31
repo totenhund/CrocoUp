@@ -145,7 +145,9 @@ class GameFragment : Fragment() {
 
         }
 
-        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
+            Timber.i("Accuracy $accuracy")
+        }
     }
 
     override fun onResume() {
