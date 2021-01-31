@@ -9,15 +9,15 @@ import androidx.room.RoomDatabase
 @Database(entities = [Word::class, Card::class], version = 1, exportSchema = false)
 abstract class WordDatabase : RoomDatabase() {
 
-    // wordDao
+    /* wordDao */
     abstract fun wordDao(): WordDao
-    // cardDao
+    /* cardDao */
     abstract fun cardDao(): CardDao
 
     companion object {
         @Volatile
         private var INSTANCE: WordDatabase? = null
-        // get database instance
+        /* get database instance */
         fun getDatabase(context: Context): WordDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
