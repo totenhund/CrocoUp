@@ -14,7 +14,9 @@ import androidx.navigation.fragment.navArgs
 import com.shpek.crocoup.guesstheword.R
 import com.shpek.crocoup.guesstheword.databinding.ScoreFragmentBinding
 
-
+/*
+* Fragment for final score
+* */
 class ScoreFragment : Fragment() {
 
     private lateinit var viewModel: ScoreViewModel

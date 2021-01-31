@@ -46,7 +46,7 @@ class TitleFragment : Fragment() {
         binding.viewPager2.adapter = adapter
         binding.viewPager2.offscreenPageLimit = 1
         titleViewModel.readAllCategories.observe(viewLifecycleOwner, Observer {
-            adapter.setData(it)
+            adapter.setCategories(it)
         })
 
         titleViewModel.allIcons.observe(viewLifecycleOwner, Observer {

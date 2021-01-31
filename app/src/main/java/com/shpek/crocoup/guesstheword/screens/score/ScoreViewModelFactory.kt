@@ -3,6 +3,9 @@ package com.shpek.crocoup.guesstheword.screens.score
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
+/*
+* Factory for ScoreFragment
+* */
 class ScoreViewModelFactory(private val finalScore: Int, private val category: String) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

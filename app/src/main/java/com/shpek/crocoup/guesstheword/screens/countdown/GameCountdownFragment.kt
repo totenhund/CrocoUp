@@ -14,6 +14,10 @@ import androidx.navigation.fragment.navArgs
 import com.shpek.crocoup.guesstheword.R
 import com.shpek.crocoup.guesstheword.databinding.GameCountdownFragmentBinding
 
+/*
+*
+* fragment that is responsible for countdown
+* */
 class GameCountdownFragment : Fragment() {
 
 

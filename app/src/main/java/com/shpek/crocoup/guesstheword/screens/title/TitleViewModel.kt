@@ -7,6 +7,9 @@ import com.shpek.crocoup.guesstheword.database.Repository
 import com.shpek.crocoup.guesstheword.database.WordDatabase
 import java.util.*
 
+/*
+* ViewModel for TitleFragment
+* */
 class TitleViewModel(application: Application) : AndroidViewModel(application) {
 
     val readAllCategories: LiveData<List<String>>

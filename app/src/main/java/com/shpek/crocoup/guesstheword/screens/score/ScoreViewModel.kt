@@ -27,10 +27,12 @@ class ScoreViewModel(finalScore: Int, wordCategory: String) : ViewModel() {
         _category.value = wordCategory
     }
 
+    // play again flag
     fun onPlayAgain() {
         _eventPlayAgain.value = true
     }
 
+    // play again complete flag
     fun onPlayAgainComplete() {
         _eventPlayAgain.value = false
     }

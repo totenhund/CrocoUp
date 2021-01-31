@@ -27,7 +27,7 @@ import timber.log.Timber
 import java.util.*
 import kotlin.math.sqrt
 
-
+/*Fragment where the game is occur*/
 class GameFragment : Fragment() {
 
     private lateinit var viewModel: GameViewModel
@@ -178,7 +178,7 @@ class GameFragment : Fragment() {
 
         object : CountDownTimer(800, 50) {
             override fun onTick(arg0: Long) {
-
+                Timber.i("Tick $arg0")
             }
 
             override fun onFinish() {

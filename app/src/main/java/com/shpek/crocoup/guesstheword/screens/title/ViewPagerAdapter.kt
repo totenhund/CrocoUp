@@ -9,6 +9,7 @@ import com.shpek.crocoup.guesstheword.R
 import kotlinx.android.synthetic.main.item_page.view.*
 import timber.log.Timber
 
+// Adapter for recycle view
 class ViewPagerAdapter(private val itemClickListener: (String) -> (Unit)) : RecyclerView.Adapter<PagerVH>() {
 
     private var categoryList = emptyList<String>()
@@ -29,16 +30,19 @@ class ViewPagerAdapter(private val itemClickListener: (String) -> (Unit)) : Recy
         iconTextView.text = String(unicode)
     }
 
-    fun setData(categories: List<String>) {
+    // set categories
+    fun setCategories(categories: List<String>) {
         this.categoryList = categories
         notifyDataSetChanged()
     }
 
+    // set icons
     fun setIcons(icons: List<Int>) {
         this.icons = icons
         notifyDataSetChanged()
     }
 
+    // set colors
     fun setColors(colors: List<String>) {
         this.colors = colors
         notifyDataSetChanged()
@@ -56,4 +60,5 @@ class ViewPagerAdapter(private val itemClickListener: (String) -> (Unit)) : Recy
 
 }
 
+// Pager class
 open class PagerVH(itemView: View) : RecyclerView.ViewHolder(itemView)

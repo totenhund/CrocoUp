@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import timber.log.Timber
-
+/*
+* ViewModel for GameCountdownFragment
+* */
 class GameCountdownViewModel(wordCategory: String) : ViewModel() {
 
     companion object {
@@ -54,6 +56,7 @@ class GameCountdownViewModel(wordCategory: String) : ViewModel() {
         Timber.i("timer is canceled")
     }
 
+    // timer is finished
     fun onTimerComplete() {
         _timerFinish.value = false
     }

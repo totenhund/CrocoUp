@@ -10,17 +10,19 @@ import com.shpek.crocoup.guesstheword.database.WordDatabase
 import timber.log.Timber
 import java.util.*
 
-
+/*
+* ViewModel for GameFragment
+* */
 class GameViewModel(application: Application, wordCategory: String) : AndroidViewModel(application) {
 
     companion object {
-        // when game is over
+
         private const val DONE = 0L
 
-        // num of ms in 1 sec
+
         private const val ONE_SECOND = 1000L
 
-        // total time of game
+
         private const val COUNTDOWN_TIME = 60000L
     }
 
@@ -29,23 +31,20 @@ class GameViewModel(application: Application, wordCategory: String) : AndroidVie
     private val _category = MutableLiveData<String>()
     val category: LiveData<String>
         get() = _category
-    //
 
     private val _currentTime = MutableLiveData<Long>()
     val currentTime: LiveData<Long>
         get() = _currentTime
 
-    // The current word
+
     private var _word = MutableLiveData<String>()
     val word: LiveData<String>
         get() = _word
 
-    // The current score
     private var _score = MutableLiveData<Int>()
     val score: LiveData<Int>
         get() = _score
 
-    // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
     private var wordLiveList: List<String>
 
@@ -81,8 +80,6 @@ class GameViewModel(application: Application, wordCategory: String) : AndroidVie
             }
         }.start()
 
-
-        // DateUtils.formatElapsedTime()
     }
 
     override fun onCleared() {
@@ -91,9 +88,6 @@ class GameViewModel(application: Application, wordCategory: String) : AndroidVie
         Timber.i("timer is canceled")
     }
 
-    /**
-     * Resets the list of words and randomizes the order
-     */
     private fun resetList() {
         wordList = mutableListOf()
         for (word in wordLiveList) {
@@ -104,27 +98,25 @@ class GameViewModel(application: Application, wordCategory: String) : AndroidVie
     }
 
 
-    /**
-     * Moves to the next word in the list
-     */
     private fun nextWord() {
-        //Select and remove a word from the list
         if (wordList.isEmpty()) {
             resetList()
         }
         _word.value = wordList.removeAt(0)
     }
 
+    // skip word
     fun onSkip() {
-//        _score.value = (score.value)?.minus(1)
         nextWord()
     }
 
+    // correct word +1 point
     fun onCorrect() {
         _score.value = (score.value)?.plus(1)
         nextWord()
     }
 
+    // game is finished
     fun onGameFinishComplete() {
         _eventGameFinish.value = false
     }
