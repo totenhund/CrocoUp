@@ -14,7 +14,11 @@ CrocoUp is a game inspired by the "Crocodile" and "Who am I" games.
 CrocoUp uses a number of open source projects and libraries to work properly:
 
 [Room](https://developer.android.com/jetpack/androidx/releases/room) - persistence library provides an abstraction layer over SQLite
+
 [CircularProgressBar](https://github.com/lopspower/CircularProgressBar) - as it says circular ProgressBar
+
 [Timber](https://github.com/JakeWharton/timber) - library for simple and comfortable logs
+
 [AndroidX](https://developer.android.com/jetpack/androidx) - provide backward compatibility across Android releases.
+
 [ViewPager2](https://developer.android.com/jetpack/androidx/releases/viewpager2) - widget to develop swipeable screens
