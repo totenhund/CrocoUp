@@ -7,9 +7,10 @@
     <string name="title_screen_header">Выберите тему\n&#127918; &#128293;</string>
     <string name="get_ready">Внимание</string>
     <string name="you_scored">Ваш счет</string>
-    <string name="word_is">Ваше слово...</string>
+    <string name="word_is">Ваше слово…</string>
     <string name="score_format">Счет: %d</string>
     <string name="correct_answer">ПРАВИЛЬНО</string>
     <string name="pass_answer">ПРОПУЩЕНО</string>
     <string name="be_ready">Внимание</string>
+    <string name="replay">Играть заново</string>
 </resources>

@@ -36,14 +36,14 @@ class GameCountdownViewModel(wordCategory: String) : ViewModel() {
     init {
         _category.value = wordCategory
 
-        timer = object : CountDownTimer(GameCountdownViewModel.COUNTDOWN_TIME, GameCountdownViewModel.ONE_SECOND) {
+        timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
             override fun onFinish() {
-                _currentTime.value = GameCountdownViewModel.DONE
+                _currentTime.value = DONE
                 _timerFinish.value = true
             }
 
             override fun onTick(p0: Long) {
-                _currentTime.value = (p0 / GameCountdownViewModel.ONE_SECOND)
+                _currentTime.value = (p0 / ONE_SECOND)
             }
         }.start()
     }

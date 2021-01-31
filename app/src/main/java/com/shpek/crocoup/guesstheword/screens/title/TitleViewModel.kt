@@ -7,7 +7,7 @@ import com.shpek.crocoup.guesstheword.database.Repository
 import com.shpek.crocoup.guesstheword.database.WordDatabase
 import java.util.*
 
-class TitleViewModel(application: Application): AndroidViewModel(application) {
+class TitleViewModel(application: Application) : AndroidViewModel(application) {
 
     val readAllCategories: LiveData<List<String>>
     val allIcons: LiveData<List<Int>>
@@ -18,7 +18,7 @@ class TitleViewModel(application: Application): AndroidViewModel(application) {
         val cardDao = WordDatabase.getDatabase(application).cardDao()
         val rep = Repository(wordDao, cardDao)
 
-        readAllCategories = if(Locale.getDefault().language == "ru"){
+        readAllCategories = if (Locale.getDefault().language == "ru") {
             rep.readAllCategoriesRu
         } else {
             rep.readAllCategories

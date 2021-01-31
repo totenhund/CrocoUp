@@ -69,7 +69,8 @@ dependencies {
     implementation "android.arch.navigation:navigation-fragment-ktx:2.2.0"
     implementation "android.arch.navigation:navigation-ui-ktx:2.2.0"
 
-    // Lifecycles
+    // Life cycles
+    //noinspection GradleDependency
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
     // Logs
@@ -92,9 +93,6 @@ dependencies {
 
     // for coroutine
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-
-    // translation ml kit
-    implementation 'com.google.mlkit:translate:16.1.1'
 
     // progress bar
     implementation 'com.mikhaellopez:circularprogressbar:3.0.3'

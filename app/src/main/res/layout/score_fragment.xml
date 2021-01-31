@@ -65,7 +65,8 @@
             android:theme="@style/GoButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/score_text" />
+            app:layout_constraintTop_toBottomOf="@+id/score_text"
+            android:contentDescription="@string/replay" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

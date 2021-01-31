@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.shpek.crocoup.guesstheword.R
 import com.shpek.crocoup.guesstheword.databinding.ScoreFragmentBinding
-import timber.log.Timber
 
 
 class ScoreFragment : Fragment() {
@@ -51,7 +50,6 @@ class ScoreFragment : Fragment() {
         // Navigates back to title when button is pressed
         viewModel.eventPlayAgain.observe(viewLifecycleOwner, Observer { playAgain ->
             if (playAgain) {
-                Timber.i("Category: " + viewModel.category.value!!)
                 findNavController().navigate(ScoreFragmentDirections.actionRestart(viewModel.category.value!!))
                 viewModel.onPlayAgainComplete()
             }

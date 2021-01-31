@@ -72,7 +72,7 @@ class GameFragment : Fragment() {
 
 
         sensorManager = activity!!.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        Objects.requireNonNull(sensorManager)!!.registerListener(sensorListener, sensorManager!!
+        sensorManager!!.registerListener(sensorListener, sensorManager!!
                 .getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
         acceleration = 10f
         currentAcceleration = SensorManager.GRAVITY_EARTH
@@ -190,7 +190,8 @@ class GameFragment : Fragment() {
         }.start()
     }
 
-    private fun vibrateOnFinish(){
+    @Suppress("DEPRECATION")
+    private fun vibrateOnFinish() {
         val vibrator = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= 26) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

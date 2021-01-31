@@ -30,4 +30,5 @@
     <string name="correct_answer">CORRECT</string>
     <string name="pass_answer">PASS</string>
     <string name="be_ready">Be ready</string>
+    <string name="replay">Replay</string>
 </resources>

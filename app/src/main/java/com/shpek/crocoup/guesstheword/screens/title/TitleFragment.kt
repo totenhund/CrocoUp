@@ -2,7 +2,6 @@ package com.shpek.crocoup.guesstheword.screens.title
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,8 +38,7 @@ class TitleFragment : Fragment() {
                 .get(TitleViewModel::class.java)
 
 
-        var adapter = ViewPagerAdapter() {
-            Log.i("logi", "clicked at : $it")
+        val adapter = ViewPagerAdapter {
             val wordCategory = it
             val action = TitleFragmentDirections.actionTitleDestinationToGameCountdownFragment2(wordCategory)
             findNavController(this).navigate(action)

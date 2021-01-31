@@ -13,13 +13,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.shpek.crocoup.guesstheword.R
 import com.shpek.crocoup.guesstheword.databinding.GameCountdownFragmentBinding
-import com.shpek.crocoup.guesstheword.databinding.ScoreFragmentBinding
 
 class GameCountdownFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = GameCountdownFragment()
-    }
 
     private lateinit var viewModel: GameCountdownViewModel
     private lateinit var viewModelFactory: GameCountdownViewModelFactory

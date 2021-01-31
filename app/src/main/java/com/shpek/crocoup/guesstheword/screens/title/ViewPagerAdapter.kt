@@ -25,26 +25,26 @@ class ViewPagerAdapter(private val itemClickListener: (String) -> (Unit)) : Recy
     override fun onBindViewHolder(holder: PagerVH, position: Int) = holder.itemView.run {
         tvTitle.text = categoryList[position]
         play_card_container.setBackgroundColor(Color.parseColor(colors[position]))
-        var unicode = Character.toChars(icons[position])
+        val unicode = Character.toChars(icons[position])
         iconTextView.text = String(unicode)
     }
 
-    fun setData(categories: List<String>){
+    fun setData(categories: List<String>) {
         this.categoryList = categories
         notifyDataSetChanged()
     }
 
-    fun setIcons(icons: List<Int>){
+    fun setIcons(icons: List<Int>) {
         this.icons = icons
         notifyDataSetChanged()
     }
 
-    fun setColors(colors: List<String>){
+    fun setColors(colors: List<String>) {
         this.colors = colors
         notifyDataSetChanged()
     }
 
-    private inner class ItemViewHolder(itemView: View): PagerVH(itemView) {
+    private inner class ItemViewHolder(itemView: View) : PagerVH(itemView) {
 
         init {
             itemView.setOnClickListener {

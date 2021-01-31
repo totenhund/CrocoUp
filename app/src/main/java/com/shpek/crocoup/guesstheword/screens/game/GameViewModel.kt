@@ -47,7 +47,7 @@ class GameViewModel(application: Application, wordCategory: String) : AndroidVie
 
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
-    var wordLiveList: List<String>
+    private var wordLiveList: List<String>
 
     private val _eventGameFinish = MutableLiveData<Boolean>()
     val eventGameFinish: LiveData<Boolean>
@@ -59,9 +59,9 @@ class GameViewModel(application: Application, wordCategory: String) : AndroidVie
         val cardDao = WordDatabase.getDatabase(application).cardDao()
         val rep = Repository(wordDao, cardDao)
         _category.value = wordCategory
-        wordLiveList = if (Locale.getDefault().language == "ru"){
+        wordLiveList = if (Locale.getDefault().language == "ru") {
             rep.readWordsRuByCategoryRu(wordCategory)
-        }else{
+        } else {
             rep.readWordsByCategory(wordCategory)
         }
         Timber.i("Init word list size ${wordLiveList.size}")
