@@ -52,6 +52,12 @@ class GameViewModel(application: Application, wordCategory: String) : AndroidVie
     val eventGameFinish: LiveData<Boolean>
         get() = _eventGameFinish
 
+    override fun onCleared() {
+        super.onCleared()
+        timer.cancel()
+        Timber.i("timer is canceled")
+    }
+
     init {
         Timber.i("GameViewModel is created!")
         val wordDao = WordDatabase.getDatabase(application).wordDao()
@@ -63,10 +69,14 @@ class GameViewModel(application: Application, wordCategory: String) : AndroidVie
         } else {
             rep.readWordsByCategory(wordCategory)
         }
+
+
+
         Timber.i("Init word list size ${wordLiveList.size}")
         resetList()
         nextWord()
         _score.value = 0
+
 
 
         timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
@@ -80,12 +90,6 @@ class GameViewModel(application: Application, wordCategory: String) : AndroidVie
             }
         }.start()
 
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        timer.cancel()
-        Timber.i("timer is canceled")
     }
 
     private fun resetList() {
