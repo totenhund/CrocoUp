@@ -3,7 +3,7 @@
 # CrocoUp
 
 [![Generic badge](https://img.shields.io/badge/platform-android-<COLOR>.svg)](https://shields.io/)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/50aeaeebb56a4d28a4e3d8d91ff4c2b0)](https://app.codacy.com/gh/totenhund/guess-it-game?utm_source=github.com&utm_medium=referral&utm_content=totenhund/guess-it-game&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7eaefe5685234146af8b8940836dd860)](https://www.codacy.com/gh/totenhund/CrocoUp/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=totenhund/CrocoUp&amp;utm_campaign=Badge_Grade)
 
 CrocoUp is a game inspired by the "Crocodile" and "Who am I" games.
 
