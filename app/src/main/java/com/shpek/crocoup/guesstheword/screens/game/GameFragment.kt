@@ -25,16 +25,19 @@ import com.shpek.crocoup.guesstheword.R
 import com.shpek.crocoup.guesstheword.databinding.GameFragmentBinding
 import timber.log.Timber
 import java.util.*
+import kotlin.math.acos
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
+
 /*Fragment where the game is occur*/
-class GameFragment : Fragment() {
+class GameFragment : Fragment(){
 
     private lateinit var viewModel: GameViewModel
     private lateinit var viewModelFactory: GameViewModelFactory
     private lateinit var binding: GameFragmentBinding
 
-    private var sensorManager: SensorManager? = null
+
     private var acceleration = 0f
     private var currentAcceleration = 0f
     private var lastAcceleration = 0f
@@ -45,6 +48,20 @@ class GameFragment : Fragment() {
 
     private lateinit var mpCorrect: MediaPlayer
     private lateinit var mpSkip: MediaPlayer
+
+
+    private var inclineGravity = FloatArray(3)
+    private var mGravity: FloatArray? = FloatArray(3)
+    private var mGeomagnetic: FloatArray? = FloatArray(3)
+    private var pitch = 0f
+    private var roll = 0f
+
+    private var mSensorManager: SensorManager? = null
+    private var accelerometer: Sensor? = null
+    private var magnetometer: Sensor? = null
+
+    private lateinit var sensorListener: SensorEventListener
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -70,13 +87,52 @@ class GameFragment : Fragment() {
         Timber.i("ViewModelProvider is Called!")
 
 
+        mSensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        accelerometer = mSensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        magnetometer = mSensorManager!!.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
 
-        sensorManager = activity!!.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        sensorManager!!.registerListener(sensorListener, sensorManager!!
-                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
         acceleration = 10f
         currentAcceleration = SensorManager.GRAVITY_EARTH
         lastAcceleration = SensorManager.GRAVITY_EARTH
+
+
+
+        sensorListener = object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent) {
+
+                last = Calendar.getInstance()
+                last.time = lastDate
+                now = Calendar.getInstance()
+                now.time = Date()
+                diff = now.timeInMillis - last.timeInMillis
+
+
+                    if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
+                        mGravity = event.values
+                    } else if (event.sensor.type == Sensor.TYPE_MAGNETIC_FIELD) {
+                        mGeomagnetic = event.values
+                        if (diff > 810){
+                        if (isTiltDownward) {
+                            changeBackground(true)
+                            viewModel.onCorrect()
+                            lastDate = Date()
+                        } else if (isTiltUpward) {
+                            changeBackground(false)
+                            viewModel.onSkip()
+                            lastDate = Date()
+                        }}
+                    }
+
+
+            }
+
+            override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
+                Timber.i("Accuracy $accuracy")
+            }
+        }
+
+        initListeners()
+
 
 
         viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->
@@ -108,57 +164,23 @@ class GameFragment : Fragment() {
 
     }
 
-    private val sensorListener: SensorEventListener = object : SensorEventListener {
-        override fun onSensorChanged(event: SensorEvent) {
+    private fun initListeners() {
+        mSensorManager!!.registerListener(sensorListener, accelerometer, SensorManager.SENSOR_DELAY_FASTEST)
+        mSensorManager!!.registerListener(sensorListener, magnetometer, SensorManager.SENSOR_DELAY_FASTEST)
+    }
 
-            last = Calendar.getInstance()
-            last.time = lastDate
-            now = Calendar.getInstance()
-            now.time = Date()
-            diff = now.timeInMillis - last.timeInMillis
-
-            val x = event.values[0]
-            val y = event.values[1]
-            val z = event.values[2]
-
-            lastAcceleration = currentAcceleration
-
-            currentAcceleration = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
-            val delta: Float = currentAcceleration - lastAcceleration
-            acceleration = acceleration * 0.9f + delta
-
-            if (acceleration > 3 && diff > 810) {
-
-                if (z > 0.5 && y < 9) {
-                    viewModel.onSkip()
-                    changeBackground(false)
-                    Timber.i("z:$z x:$x y:$y a:$acceleration diff: $diff")
-                } else if (z < 0.5 && y < 9) {
-                    viewModel.onCorrect()
-                    changeBackground(true)
-                    Timber.i("z:$z x:$x y:$y a:$acceleration diff: $diff")
-                }
-
-                lastDate = Date()
-            }
-
-
-        }
-
-        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
-            Timber.i("Accuracy $accuracy")
-        }
+    override fun onDestroy() {
+        mSensorManager!!.unregisterListener(sensorListener)
+        super.onDestroy()
     }
 
     override fun onResume() {
-        sensorManager?.registerListener(sensorListener, sensorManager!!.getDefaultSensor(
-                Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL
-        )
+        initListeners()
         super.onResume()
     }
 
     override fun onPause() {
-        sensorManager!!.unregisterListener(sensorListener)
+        mSensorManager!!.unregisterListener(sensorListener)
         super.onPause()
     }
 
@@ -203,5 +225,92 @@ class GameFragment : Fragment() {
             vibrator.vibrate(400)
         }
     }
+
+
+    private val isTiltUpward: Boolean
+        get() {
+            if (mGravity != null && mGeomagnetic != null) {
+                val r = FloatArray(9)
+                val i = FloatArray(9)
+                val success =
+                        SensorManager.getRotationMatrix(r, i, mGravity, mGeomagnetic)
+                if (success) {
+                    val orientation = FloatArray(3)
+                    SensorManager.getOrientation(r, orientation)
+
+                    pitch = orientation[1]
+                    roll = orientation[2]
+                    inclineGravity = mGravity!!.clone()
+                    val normOfG = sqrt(
+                            inclineGravity[0] * inclineGravity[0] + inclineGravity[1] * inclineGravity[1] + (inclineGravity[2] * inclineGravity[2]).toDouble()
+                    )
+
+                    // Normalize the accelerometer vector
+                    inclineGravity[0] = (inclineGravity[0] / normOfG).toFloat()
+                    inclineGravity[1] = (inclineGravity[1] / normOfG).toFloat()
+                    inclineGravity[2] = (inclineGravity[2] / normOfG).toFloat()
+
+                    //Checks if device is flat on ground or not
+                    val inclination = Math.toDegrees(
+                            acos(
+                                    inclineGravity[2].toDouble()
+                            )
+                    ).roundToInt()
+
+                    val objPitch = pitch
+                    val objZero = 0.0f
+                    val objZeroPointTwo = 0.2f
+                    val objZeroPointTwoNegative = -0.2f
+                    val objPitchZeroResult = objPitch.compareTo(objZero)
+                    val objPitchZeroPointTwoResult = objZeroPointTwo.compareTo(objPitch)
+                    val objPitchZeroPointTwoNegativeResult =
+                            objPitch.compareTo(objZeroPointTwoNegative)
+                    return roll < 0 && (objPitchZeroResult > 0 && objPitchZeroPointTwoResult > 0 || objPitchZeroResult < 0 && objPitchZeroPointTwoNegativeResult > 0) && inclination > 30 && inclination < 40
+                }
+            }
+            return false
+        }
+
+
+    private val isTiltDownward: Boolean
+        get() {
+            if (mGravity != null && mGeomagnetic != null) {
+                val r = FloatArray(9)
+                val i = FloatArray(9)
+                val success =
+                        SensorManager.getRotationMatrix(r, i, mGravity, mGeomagnetic)
+                if (success) {
+                    val orientation = FloatArray(3)
+                    SensorManager.getOrientation(r, orientation)
+                    pitch = orientation[1]
+                    roll = orientation[2]
+                    inclineGravity = mGravity!!.clone()
+                    val normOfG = sqrt(
+                            inclineGravity[0] * inclineGravity[0] + inclineGravity[1] * inclineGravity[1] + (inclineGravity[2] * inclineGravity[2]).toDouble()
+                    )
+
+                    inclineGravity[0] = (inclineGravity[0] / normOfG).toFloat()
+                    inclineGravity[1] = (inclineGravity[1] / normOfG).toFloat()
+                    inclineGravity[2] = (inclineGravity[2] / normOfG).toFloat()
+
+
+                    val inclination = Math.toDegrees(
+                            acos(
+                                    inclineGravity[2].toDouble()
+                            )
+                    ).roundToInt()
+                    val objPitch = pitch
+                    val objZero = 0.0f
+                    val objZeroPointTwo = 0.2f
+                    val objZeroPointTwoNegative = -0.2f
+                    val objPitchZeroResult = objPitch.compareTo(objZero)
+                    val objPitchZeroPointTwoResult = objZeroPointTwo.compareTo(objPitch)
+                    val objPitchZeroPointTwoNegativeResult =
+                            objPitch.compareTo(objZeroPointTwoNegative)
+                    return roll < 0 && (objPitchZeroResult > 0 && objPitchZeroPointTwoResult > 0 || objPitchZeroResult < 0 && objPitchZeroPointTwoNegativeResult > 0) && inclination > 140 && inclination < 170
+                }
+            }
+            return false
+        }
 
 }
